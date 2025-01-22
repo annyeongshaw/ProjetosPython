@@ -1,11 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox
 
-
 class App:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Gerenciador de Produtos")
+    def __init__(self, janela):
+        self.janela = janela
+        self.janela.title("Gerenciador de Produtos")
 
         # Lista de produtos
         self.produtos = []
@@ -15,29 +14,29 @@ class App:
 
     def tela_formulario(self):
         # Limpa a janela
-        for widget in self.root.winfo_children():
+        for widget in self.janela.winfo_children():
             widget.destroy()
 
         # Título
-        tk.Label(self.root, text="Cadastrar Produto", font=("Arial", 16)).pack(pady=10)
+        tk.Label(self.janela, text="Cadastrar Produto", font=("Arial", 16)).pack(pady=10)
 
         # Campos do formulário
-        tk.Label(self.root, text="Nome do Produto:").pack()
-        entry_nome = tk.Entry(self.root)
+        tk.Label(self.janela, text="Nome do Produto:").pack()
+        entry_nome = tk.Entry(self.janela)
         entry_nome.pack()
 
-        tk.Label(self.root, text="Descrição do Produto:").pack()
-        entry_descricao = tk.Entry(self.root)
+        tk.Label(self.janela, text="Descrição do Produto:").pack()
+        entry_descricao = tk.Entry(self.janela)
         entry_descricao.pack()
 
-        tk.Label(self.root, text="Valor do Produto:").pack()
-        entry_valor = tk.Entry(self.root)
+        tk.Label(self.janela, text="Valor do Produto:").pack()
+        entry_valor = tk.Entry(self.janela)
         entry_valor.pack()
 
-        tk.Label(self.root, text="Disponível para Venda:").pack()
+        tk.Label(self.janela, text="Disponível para Venda:").pack()
         var_disponivel = tk.StringVar(value="sim")
-        tk.Radiobutton(self.root, text="Sim", variable=var_disponivel, value="sim").pack()
-        tk.Radiobutton(self.root, text="Não", variable=var_disponivel, value="nao").pack()
+        tk.Radiobutton(self.janela, text="Sim", variable=var_disponivel, value="sim").pack()
+        tk.Radiobutton(self.janela, text="Não", variable=var_disponivel, value="nao").pack()
 
         # Botão para salvar o produto
         def salvar_produto():
@@ -60,22 +59,22 @@ class App:
             messagebox.showinfo("Sucesso", "Produto cadastrado com sucesso!")
             self.tela_listagem()
 
-        tk.Button(self.root, text="Salvar Produto", command=salvar_produto).pack(pady=10)
-        tk.Button(self.root, text="Voltar para a Listagem", command=self.tela_listagem).pack(pady=5)
+        tk.Button(self.janela, text="Salvar Produto", command=salvar_produto).pack(pady=10)
+        tk.Button(self.janela, text="Voltar para a Listagem", command=self.tela_listagem).pack(pady=5)
 
     def tela_listagem(self):
         # Limpa a janela
-        for widget in self.root.winfo_children():
+        for widget in self.janela.winfo_children():
             widget.destroy()
 
         # Título
-        tk.Label(self.root, text="Listagem de Produtos", font=("Arial", 16)).pack(pady=10)
+        tk.Label(self.janela, text="Listagem de Produtos", font=("Arial", 16)).pack(pady=10)
 
         # Ordenar os produtos por valor do menor para o maior
         produtos_ordenados = sorted(self.produtos, key=lambda x: x["valor"])
 
         # Tabela de produtos
-        frame_tabela = tk.Frame(self.root)
+        frame_tabela = tk.Frame(self.janela)
         frame_tabela.pack(pady=10)
 
         tk.Label(frame_tabela, text="Nome", width=20, borderwidth=1, relief="solid").grid(row=0, column=0)
@@ -86,11 +85,11 @@ class App:
             tk.Label(frame_tabela, text=f'R$ {produto["valor"]:.2f}', width=20, borderwidth=1, relief="solid").grid(row=i+1, column=1)
 
         # Botão para cadastrar novo produto
-        tk.Button(self.root, text="Cadastrar Novo Produto", command=self.tela_formulario).pack(pady=10)
+        tk.Button(self.janela, text="Cadastrar Novo Produto", command=self.tela_formulario).pack(pady=10)
 
 
 # Inicialização da aplicação
 if __name__ == "__main__":
-    root = tk.Tk()
-    app = App(root)
-    root.mainloop()
+    janela = tk.Tk()
+    app = App(janela)
+    janela.mainloop()
